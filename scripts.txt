@@ -1,0 +1,33 @@
+dotnet add package Microsoft.EntityFrameworkCore --version 6.0.1 
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.1 
+dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.1 
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 6.0.1 
+dotnet add package Pomelo.EntityFrameworkCore.MySql  --version 6.0.1 
+dotnet add package Microsoft.EntityFrameworkCore.Relational --version 6.0.1 
+dotnet add package System.Configuration.ConfigurationManager --version 6.0.1 
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 6.0.1
+
+dotnet ef migrations add InitialCreate
+
+dotnet ef database update
+
+dotnet-aspnet-codegenerator controller -name MarcaController -m Marca -dc MyDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoDePagamento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TipoDePagamento)
+        </dd>
+
+  <td>
+            @if (item.TipoDePagamento != null)
+            {
+                @Html.DisplayFor(modelItem => item.TipoDePagamento.NomeDoCobrado)
+            }
+        </td>
+
+    <th>
+                @Html.DisplayNameFor(model => model.TipoDePagamento)
+            </th>
+            <th></th>      

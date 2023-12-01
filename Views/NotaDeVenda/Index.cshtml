@@ -1,0 +1,87 @@
+@model IEnumerable<gabriela_duarte.Models.NotaDeVenda>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@if (TempData.ContainsKey("Mensagem"))
+{
+    <div class="alert alert-success">
+        @TempData["Mensagem"]
+    </div>
+}
+else if (TempData.ContainsKey("Erro"))
+{
+    <div class="alert alert-danger">
+        @TempData["Erro"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoDePagamento)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.ClienteId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vendedor.VendedorId)
+            </td>
+            <td>
+            @if (item.TipoDePagamento != null)
+                {
+                    @Html.DisplayFor(modelItem => item.TipoDePagamento.NomeDoCobrado)
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.NotaDeVendaId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.NotaDeVendaId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.NotaDeVendaId">Delete</a>
+            </td>
+            <td>
+                <form asp-action="CancelarNota" method="post">
+                        <input type="hidden" name="NotaDeVendaId" value="@item.NotaDeVendaId" />
+                        <button class="btn btn-danger" type="submit">Cancelar</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="DevolverNota" method="post">
+                        <input type="hidden" name="NotaDeVendaId" value="@item.NotaDeVendaId" />
+                        <button class="btn btn-success" type="submit">Devolver</button>
+                    </form>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
